@@ -1,0 +1,146 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("/assets/fonts/PlusJakartaSans.woff2") format("woff2");
+  font-weight: 200 700;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+    --background: 0.12 0.02 232;
+    --foreground: 0.93 0.018 232;
+    --card: 0.18 0.025 232;
+    --card-foreground: 0.93 0.018 232;
+    --popover: 0.22 0.028 232;
+    --popover-foreground: 0.93 0.018 232;
+    --primary: 0.7 0.12 70;
+    --primary-foreground: 0.12 0.02 232;
+    --secondary: 0.22 0.025 232;
+    --secondary-foreground: 0.93 0.018 232;
+    --muted: 0.2 0.022 232;
+    --muted-foreground: 0.62 0.018 232;
+    --accent: 0.7 0.12 70;
+    --accent-foreground: 0.12 0.02 232;
+    --destructive: 0.6 0.22 25;
+    --destructive-foreground: 0.93 0.018 232;
+    --border: 0.28 0.025 232;
+    --input: 0.28 0.025 232;
+    --ring: 0.7 0.12 70;
+    --chart-1: 0.7 0.12 70;
+    --chart-2: 0.6 0.1 185;
+    --chart-3: 0.5 0.08 260;
+    --chart-4: 0.65 0.14 45;
+    --chart-5: 0.55 0.16 310;
+    --sidebar: 0.15 0.022 232;
+    --sidebar-foreground: 0.93 0.018 232;
+    --sidebar-primary: 0.7 0.12 70;
+    --sidebar-primary-foreground: 0.12 0.02 232;
+    --sidebar-accent: 0.22 0.025 232;
+    --sidebar-accent-foreground: 0.93 0.018 232;
+    --sidebar-border: 0.28 0.025 232;
+    --sidebar-ring: 0.7 0.12 70;
+    /* Chess-specific */
+    --gold: 0.7 0.12 70;
+    --gold-dim: 0.6 0.1 70;
+    --gold-glow: rgba(199, 161, 90, 0.35);
+    --board-light: #c4a27a;
+    --board-dark: #3b2e27;
+    --board-frame: #5a3a24;
+  }
+
+  * {
+    @apply border-border;
+  }
+  html {
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
+    background: linear-gradient(
+      160deg,
+      oklch(0.12 0.02 232) 0%,
+      oklch(0.16 0.025 232) 100%
+    );
+    min-height: 100vh;
+  }
+}
+
+/* Gold glow animation for current turn */
+@keyframes goldPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 12px 2px rgba(199, 161, 90, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 22px 6px rgba(199, 161, 90, 0.55);
+  }
+}
+.gold-pulse {
+  animation: goldPulse 2s ease-in-out infinite;
+}
+
+/* Chess piece styling */
+.chess-piece {
+  user-select: none;
+  cursor: pointer;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.7));
+  transition: transform 0.1s ease;
+}
+.chess-piece:hover {
+  transform: scale(1.08);
+}
+
+/* Board square highlight */
+.sq-selected {
+  background-color: rgba(199, 161, 90, 0.55) !important;
+}
+.sq-lastmove {
+  background-color: rgba(199, 161, 90, 0.28) !important;
+}
+.sq-check {
+  background-color: rgba(220, 50, 50, 0.6) !important;
+}
+
+/* Move dot indicator */
+.move-dot::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 28%;
+  height: 28%;
+  border-radius: 50%;
+  background: rgba(199, 161, 90, 0.65);
+  pointer-events: none;
+}
+.move-dot-capture::after {
+  content: "";
+  position: absolute;
+  inset: 6%;
+  border-radius: 50%;
+  border: 3px solid rgba(199, 161, 90, 0.65);
+  pointer-events: none;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: oklch(0.35 0.025 232);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.7 0.12 70);
+}
